@@ -1,0 +1,283 @@
+-- ex_00
+-- 1
+SET
+autocommit TO on;
+BEGIN;
+
+UPDATE pizzeria
+SET rating = 5
+WHERE name = 'Pizza Hut';
+SELECT *
+FROM pizzeria;
+-- 2
+SELECT *
+FROM pizzeria;
+-- 1
+COMMIT;
+-- 2
+SELECT *
+FROM pizzeria;
+-- ex_01
+-- 1
+SHOW
+TRANSACTION ISOLATION LEVEL;
+-- 2
+SHOW
+TRANSACTION ISOLATION LEVEL;
+-- 1
+BEGIN;
+-- 2
+BEGIN;
+-- 1
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- 2
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- 1
+UPDATE pizzeria
+SET rating = 4
+WHERE name = 'Pizza Hut';
+-- 2
+UPDATE pizzeria
+SET rating = 3.6
+WHERE name = 'Pizza Hut';
+-- 1
+COMMIT;
+-- 2
+COMMIT;
+-- 1
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- 2
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- ex_02
+-- 1
+SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+-- 2
+SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+-- 1
+SHOW
+TRANSACTION ISOLATION LEVEL;
+-- 2
+SHOW
+TRANSACTION ISOLATION LEVEL;
+-- 1
+BEGIN;
+-- 2
+BEGIN;
+-- 1
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- 2
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- 1
+UPDATE pizzeria
+SET rating = 4
+WHERE name = 'Pizza Hut';
+-- 2
+UPDATE pizzeria
+SET rating = 3.6
+WHERE name = 'Pizza Hut';
+-- 1
+COMMIT;
+-- 2
+COMMIT;
+-- 1
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- 2
+SELECT rating
+FROM pizzeria W
+-- ex_03
+-- 1
+    SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL READ COMMITTED;
+-- 2
+SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL READ COMMITTED;
+-- 1
+SHOW
+TRANSACTION ISOLATION LEVEL;
+-- 2
+SHOW
+TRANSACTION ISOLATION LEVEL;
+-- 1
+BEGIN;
+-- 2
+BEGIN;
+-- 1
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- 2
+UPDATE pizzeria
+SET rating = 3.6
+WHERE name = 'Pizza Hut';
+-- 2
+COMMIT;
+-- 1
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- 1
+COMMIT;
+-- 1
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- 2
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- ex_04
+-- 1
+SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+-- 2
+SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+-- 1
+SHOW
+TRANSACTION ISOLATION LEVEL;
+-- 2
+SHOW
+TRANSACTION ISOLATION LEVEL;
+-- 1
+BEGIN;
+-- 2
+BEGIN;
+-- 1
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- 2
+UPDATE pizzeria
+SET rating = 3.0
+WHERE name = 'Pizza Hut';
+-- 2
+COMMIT;
+-- 1
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- 1
+COMMIT;
+-- 1
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- 2
+SELECT rating
+FROM pizzeria
+WHERE name = 'Pizza Hut';
+-- ex_05
+-- 1
+SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL READ COMMITTED;
+-- 2
+SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL READ COMMITTED;
+-- 1
+SHOW
+TRANSACTION ISOLATION LEVEL;
+-- 2
+SHOW
+TRANSACTION ISOLATION LEVEL;
+-- 1
+BEGIN;
+-- 2
+BEGIN;
+-- 1
+SELECT SUM(rating)
+FROM pizzeria;
+-- 2
+UPDATE pizzeria
+SET rating = 1.0
+WHERE name = 'Pizza Hut';
+-- 2
+COMMIT;
+-- 1
+SELECT SUM(rating)
+FROM pizzeria;
+-- 1
+COMMIT;
+-- 1
+SELECT SUM(rating)
+FROM pizzeria;
+-- 2
+SELECT SUM(rating)
+FROM pizzeria;
+-- ex_06
+-- 1
+SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+-- 2
+SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+-- 1
+SHOW
+TRANSACTION ISOLATION LEVEL;
+-- 2
+SHOW
+TRANSACTION ISOLATION LEVEL;
+-- 1
+BEGIN;
+-- 2
+BEGIN;
+-- 1
+SELECT SUM(rating)
+FROM pizzeria;
+-- 2
+UPDATE pizzeria
+SET rating = 5.0
+WHERE name = 'Pizza Hut';
+-- 2
+COMMIT;
+-- 1
+SELECT SUM(rating)
+FROM pizzeria;
+-- 1
+COMMIT;
+-- 1
+SELECT SUM(rating)
+FROM pizzeria;
+-- 2
+SELECT SUM(rating)
+FROM pizzeria;
+-- ex_07
+-- 1
+SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL READ COMMITTED;
+-- 2
+SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL READ COMMITTED;
+-- 1
+SHOW
+TRANSACTION ISOLATION LEVEL;
+-- 2
+SHOW
+TRANSACTION ISOLATION LEVEL;
+-- 1
+BEGIN;
+-- 2
+BEGIN;
+-- 1
+UPDATE pizzeria
+SET rating = 0.0
+WHERE id = 1;
+-- 2
+UPDATE pizzeria
+SET rating = 0.0
+WHERE id = 2;
+-- 1
+UPDATE pizzeria
+SET rating = 1.0
+WHERE id = 2;
+-- 2
+UPDATE pizzeria
+SET rating = 1.0
+WHERE id = 1;
+-- 1
+COMMIT;
+-- 2
+COMMIT;
